@@ -8,6 +8,7 @@ from datetime import datetime
 import subprocess
 import platform
 import scapy.all as scapy
+import whois  # python-whois kütüphanesini import ettik
 
 def banner():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -49,10 +50,12 @@ def ip_info():
 def whois_lookup():
     domain = input("Enter domain: ")
     try:
-        r = requests.get(f"https://api.hackertarget.com/whois/?q={domain}")
-        print(r.text)
-    except:
-        print("Failed to fetch whois info.")
+        print(f"\n[+] Fetching WHOIS data for {domain}...\n")
+        # Python whois kütüphanesi ile sorgulama
+        w = whois.whois(domain)
+        print(w)
+    except Exception as e:
+        print(f"[!] An error occurred while performing WHOIS lookup: {e}")
 
 def ping_target():
     target = input("Enter IP or domain: ")
@@ -210,4 +213,4 @@ while True:
         break
     else:
         print("Invalid choice.")
-    input("\nPress Enter to return to menu...")
+    input("\nPress Enter to return to menu...") 
