@@ -8,7 +8,7 @@
 `cd apkunter`
 
 
-`pip install rich`
+`pip install -r requirements.txt`
 
 
 `python tool.py`
