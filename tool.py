@@ -8,7 +8,7 @@ from datetime import datetime
 import subprocess
 import platform
 import scapy.all as scapy
-import whois  # python-whois kütüphanesini import ettik
+import whois  
 
 def banner():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -51,7 +51,7 @@ def whois_lookup():
     domain = input("Enter domain: ")
     try:
         print(f"\n[+] Fetching WHOIS data for {domain}...\n")
-        # Python whois kütüphanesi ile sorgulama
+       
         w = whois.whois(domain)
         print(w)
     except Exception as e:
@@ -115,18 +115,18 @@ def udp_scan():
 
 def ssl_certificate_info():
     domain = input("Enter domain for SSL certificate info: ")
-    port = 443  # Default SSL port
+    port = 443  
 
     try:
-        # Establish a socket connection to the domain on port 443 (HTTPS)
+        
         context = ssl.create_default_context()
         connection = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=domain)
         connection.connect((domain, port))
 
-        # Get the certificate in PEM format
+        
         cert = connection.getpeercert()
 
-        # Display certificate details
+        
         print(f"\n[+] SSL Certificate Info for {domain}:")
         print(f"Issuer: {cert['issuer']}")
         print(f"Subject: {cert['subject']}")
@@ -134,7 +134,7 @@ def ssl_certificate_info():
         print(f"Not Before: {cert['notBefore']}")
         print(f"Not After: {cert['notAfter']}")
 
-        # Convert date formats
+       
         not_before = datetime.strptime(cert['notBefore'], "%b %d %H:%M:%S %Y GMT")
         not_after = datetime.strptime(cert['notAfter'], "%b %d %H:%M:%S %Y GMT")
         print(f"Validity Period: {not_before.strftime('%Y-%m-%d')} to {not_after.strftime('%Y-%m-%d')}")
@@ -184,7 +184,7 @@ def arp_scan():
     for element in answered_list:
         print(f"IP Address: {element[1].psrc} - MAC Address: {element[1].hwsrc}")
 
-# Ana Menü Döngüsü
+
 while True:
     banner()
     menu()
